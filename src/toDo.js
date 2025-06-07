@@ -28,6 +28,7 @@ function validateTodoInput({ title, description, dueDate, priority, notes }) {
 
 
 class ToDo {
+    //add completed and project
   constructor({ title, description, dueDate, priority, notes }) {
     validateTodoInput({ title, description, dueDate, priority, notes });
     this.title = title;
