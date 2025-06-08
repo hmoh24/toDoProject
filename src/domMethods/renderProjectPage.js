@@ -1,3 +1,5 @@
+import renderToDoForProject from "./renderTodoItem";
+
 function renderProjectPage(project) {
     const main = document.getElementsByTagName('main')[0]; 
 
@@ -14,6 +16,10 @@ function renderProjectPage(project) {
     main.appendChild(notes);
 
     // toDoArray handling can go here later
+    const toDoDiv = document.createElement('div');
+    toDoDiv.className = 'toDodiv';
+    main.appendChild(toDoDiv);
+    renderToDoForProject(project, toDoDiv);
 }
 
 export default renderProjectPage

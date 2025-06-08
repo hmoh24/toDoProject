@@ -1,5 +1,6 @@
 
 //Cumbersome validation, a library would be useful here and can also 
+//project validtor which checks for existing projects based on method on array input
 function validateTodoInput({ title, description, dueDate, priority, notes }) {
   const stringFields = { title, description, notes };
   const maxLengths = { title: 50, description: 200, notes: Infinity }; // set max length for each
@@ -28,14 +29,14 @@ function validateTodoInput({ title, description, dueDate, priority, notes }) {
 
 
 class ToDo {
-    //add completed and project
   constructor({ title, description, dueDate, priority, notes }) {
-    validateTodoInput({ title, description, dueDate, priority, notes });
+    validateTodoInput({ title, description, dueDate, priority, notes});
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.notes = notes;
+    this.completed = false;
   }
 }
 

@@ -8,12 +8,11 @@ import renderProjectPage from './domMethods/renderProjectPage';
 //create a project array
 
 const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-renderProjectPage(defaultProject);
 
 const newToDo = new ToDo({
   title: "First",
   description: "test",
-  dueDate: new Date(),      // or any valid date string
+  dueDate: new Date(),  
   priority: "High",
   notes: ""
 });
@@ -22,13 +21,14 @@ defaultProject.addToDo(newToDo);
 const newToDo2 = new ToDo({
   title: "Second",
   description: "test",
-  dueDate: new Date(),      // or any valid date string
+  dueDate: new Date(),     
   priority: "High",
   notes: ""
 });
 defaultProject.addToDo(newToDo2);
-defaultProject.removeToDo(newToDo);
-console.log(defaultProject.toDoArray)
+console.log(defaultProject.toDoArray);
+renderProjectPage(defaultProject);
+
 
 const workProject = new Project('work', 'employment related tasks', '');
 
