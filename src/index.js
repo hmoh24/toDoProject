@@ -1,12 +1,14 @@
 import './style.css'
 import ToDo from "./toDo";
 import Project from "./project";
-import { updateProjectSideBar } from './domMethods/dom';
+import { updateProjectSideBar } from './domMethods/updateProjectSidebar';
+import renderProjectPage from './domMethods/renderProjectPage';
 
 //instantiate default project
 //create a project array
 
-const defaultProject = new Project('Default', 'Default Project', '');
+const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+renderProjectPage(defaultProject);
 
 const newToDo = new ToDo({
   title: "First",
