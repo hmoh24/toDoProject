@@ -22,6 +22,10 @@ body {
     flex-direction: column;
 }
 
+.addProject {
+    order: 99;
+}
+
 main{
     flex: 5 1 auto;
     background-color: var(--primary-color);
