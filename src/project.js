@@ -2,12 +2,21 @@
 
 class Project{
     static Projects = [];
+    static ProjectLimit = 8;
 
     constructor(title, desc, notes, toDoArray = []){
+        Project.errorOnMaxProjects()
         this.title = title;
         this.desc = desc;
         this.notes = notes;
         this.toDoArray = toDoArray;
+        Project.Projects.push(this);
+    }
+
+    static errorOnMaxProjects(){
+        if (Project.length === this.ProjectLimit){
+            throw new Error(`Max Limit of Projects: ${ProjectLimit}`)
+        }
     }
 
     addToDo(toDoObject){

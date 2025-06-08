@@ -1,0 +1,28 @@
+:root{
+    --primary-color: red;
+    --secondary-color: white;
+    --tertiary-color: rgb(192, 190, 190);
+    --accent-color: blue;
+}
+
+html, body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+}
+
+.sidebar{
+    flex: 1 1 auto;
+    background-color: var(--tertiary-color);
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 5 1 auto;
+    background-color: var(--primary-color);
+}
