@@ -33,6 +33,16 @@ class Project{
     static addNewProject(projectObject){
         this.Projects.push(projectObject);
     }
+
+    static filterProjectArrayByTitle(title){
+        let obj;
+        Project.Projects.filter(projectObject => {
+            if (projectObject.title === title){
+                obj = projectObject
+            }
+        })
+        return obj
+    }
 }
 
 export default Project

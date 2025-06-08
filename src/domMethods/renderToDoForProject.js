@@ -31,7 +31,6 @@ function renderToDoItem(toDoObject, container){
 
 function renderToDoForProject(project, container){
     project.toDoArray.forEach(toDo => {
-        console.log(toDo);
         renderToDoItem(toDo, container)
     })
 }

@@ -33,6 +33,19 @@ renderProjectPage(defaultProject);
 const workProject = new Project('work', 'employment related tasks', '');
 
 updateProjectSideBar(Project.Projects);
+
+
+//encapsulate? 
+const main = document.getElementsByTagName('main')[0];
+const sideBar = document.getElementsByClassName('sidebar')[0];
+sideBar.addEventListener('click', (event)=>{
+    if (event.target.className === 'projectSideButton'){
+        const project = Project.filterProjectArrayByTitle(event.target.innerText);
+        console.log(project);
+        main.innerHTML = '';
+        renderProjectPage(project)
+    }
+})
 //test creation of todo, linking it to a project, displaying all to dos per project
 //then simple UI
 //then add needed functions for that UI
