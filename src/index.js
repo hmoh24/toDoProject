@@ -6,7 +6,7 @@ import renderProjectPage from './domMethods/renderProjectPage';
 import renderProjectEditPage from './domMethods/renderProjectEditPage';
 import updateProjectOnSubmit from './domMethods/updateProjectOnSubmit';
 import renderNewProjectModal from './domMethods/renderNewProjectModal';
-
+import getNewProjectFormValues from './domMethods/getNewProjectFormValues';
 //instantiate default project
 //create a project array
 
@@ -91,17 +91,21 @@ const body = document.getElementsByTagName('body')[0];
 body.addEventListener('click', (event)=> {
   const modalOverlay = document.querySelector('.modalOverlay');
   const modal = document.querySelector('.modalContainer');
-  console.log(modal, modalOverlay)
-  if (modal){
-      modal.addEventListener('click', (event)=>{
-        event.stopPropagation();
-    })
-  }
 
-  //close modal if click outside
-  if (event.target.classList.contains('modalOverlay')){
-    modal.remove();
+  if (event.target.classList.contains('modalOverlay')) {
+        event.target.remove();
+    }
+
+  console.log('test')
+  //submit new project form
+  if(event.target.classList.contains('submitNewProject')){
+    console.log('submit')
+    const { title, desc, notes } = getNewProjectFormValues();
+    const newProject = new Project(title, desc, notes);
+    console.log('New project created:', newProject);
     modalOverlay.remove();
+    updateProjectSideBar(Project.Projects)
+    renderProjectPage(newProject);
   }
 })
 
