@@ -27,6 +27,11 @@ function renderProjectPage(project) {
     editProjectButton.classList = 'editProject';
     editProjectButton.innerText = 'Edit Project';
     main.appendChild(editProjectButton);
+
+    const addToDoButton = document.createElement('button');
+    addToDoButton.classList = 'addToDo';
+    addToDoButton.innerText = 'Add To-Do';
+    main.appendChild(addToDoButton);
 }
 
 export default renderProjectPage
