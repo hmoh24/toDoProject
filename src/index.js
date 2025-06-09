@@ -1,9 +1,10 @@
 import './style.css'
-import ToDo from "./toDo";
-import Project from "./project";
+import ToDo from "./core/toDo";
+import Project from "./core/project";
 import { updateProjectSideBar } from './domMethods/updateProjectSidebar';
 import renderProjectPage from './domMethods/renderProjectPage';
 import renderProjectEditPage from './domMethods/renderProjectEditPage';
+import updateProjectOnSubmit from './domMethods/updateProjectOnSubmit';
 //instantiate default project
 //create a project array
 
@@ -53,8 +54,19 @@ main.addEventListener('click', (event) => {
       console.log(projectObject)
       renderProjectPage(projectObject);
   }
-})
 
+    //Submit Button on Edit Project Page
+  if (event.target.classList.contains('submitProjectEdit')){
+      console.log('submitted');
+      const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
+      const projectObject = Project.filterProjectArrayByTitle(projectTitle);
+      updateProjectOnSubmit(projectObject);
+            console.log(projectObject)
+
+      renderProjectPage(projectObject);
+  }
+  
+})
 
 
 

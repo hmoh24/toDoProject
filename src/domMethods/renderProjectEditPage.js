@@ -43,7 +43,7 @@ function renderProjectEditPage(project) {
 
     // Submit button
     const submitButton = document.createElement('button');
-    submitButton.type = 'button'; // Prevent default form submission
+    submitButton.type = 'button'; 
     submitButton.classList.add('submitProjectEdit');
     submitButton.innerText = 'Save Changes';
     form.appendChild(submitButton);
