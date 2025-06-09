@@ -9,6 +9,7 @@ html, body{
     margin: 0;
     height: 100%;
     width: 100%;
+    position: relative;
 }
 
 body {
@@ -30,3 +31,22 @@ main{
     flex: 5 1 auto;
     background-color: var(--primary-color);
 }
+
+.modalOverlay {
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: #414141c7;
+}
+
+.modalContainer {
+    z-index: 3;
+    right: 50%;
+    top: 50%;
+    background: green;
+    height: 300px;
+    width: 300px;
+    position: absolute;
+}
+

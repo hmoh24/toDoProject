@@ -5,6 +5,8 @@ import { updateProjectSideBar } from './domMethods/updateProjectSidebar';
 import renderProjectPage from './domMethods/renderProjectPage';
 import renderProjectEditPage from './domMethods/renderProjectEditPage';
 import updateProjectOnSubmit from './domMethods/updateProjectOnSubmit';
+import renderNewProjectModal from './domMethods/renderNewProjectModal';
+
 //instantiate default project
 //create a project array
 
@@ -72,11 +74,34 @@ main.addEventListener('click', (event) => {
 
 const sideBar = document.getElementsByClassName('sidebar')[0];
 sideBar.addEventListener('click', (event)=>{
-    if (event.target.className === 'projectSideButton'){
+    //Switch Project Page
+    if (event.target.classList.contains('projectSideButton')){
         const project = Project.filterProjectArrayByTitle(event.target.innerText);
         console.log(project);
         renderProjectPage(project)
     }
+
+    //Add New Project Modal
+  if (event.target.classList.contains('addProject')){
+    renderNewProjectModal();
+  }
 })
 
+const body = document.getElementsByTagName('body')[0];
+body.addEventListener('click', (event)=> {
+  const modalOverlay = document.querySelector('.modalOverlay');
+  const modal = document.querySelector('.modalContainer');
+  console.log(modal, modalOverlay)
+  if (modal){
+      modal.addEventListener('click', (event)=>{
+        event.stopPropagation();
+    })
+  }
+
+  //close modal if click outside
+  if (event.target.classList.contains('modalOverlay')){
+    modal.remove();
+    modalOverlay.remove();
+  }
+})
 
