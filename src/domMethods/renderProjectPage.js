@@ -1,9 +1,11 @@
-import renderToDoForProject from "./renderTodoItem";
+import renderToDoForProject from "./renderToDoForProject";
 
 function renderProjectPage(project) {
     const main = document.getElementsByTagName('main')[0]; 
+    main.innerHTML = ''; // Clear the current page
 
     const title = document.createElement('h1');
+    title.classList.add('projectTitle')
     title.innerText = project.title;
     main.appendChild(title);
 
@@ -20,6 +22,11 @@ function renderProjectPage(project) {
     toDoDiv.className = 'toDodiv';
     main.appendChild(toDoDiv);
     renderToDoForProject(project, toDoDiv);
+
+    const editProjectButton = document.createElement('button');
+    editProjectButton.classList = 'editProject';
+    editProjectButton.innerText = 'Edit Project';
+    main.appendChild(editProjectButton);
 }
 
 export default renderProjectPage
