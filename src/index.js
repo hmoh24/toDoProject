@@ -7,19 +7,21 @@ import renderProjectEditPage from './domMethods/renderProjectEditPage';
 import updateProjectOnSubmit from './domMethods/updateProjectOnSubmit';
 import renderNewProjectModal from './domMethods/renderNewProjectModal';
 import getNewProjectFormValues from './domMethods/getNewProjectFormValues';
+import renderNewToDoModal from './domMethods/renderNewToDoModal';
+import getNewToDoFormValues from './domMethods/getNewToDoFormValues';
 //instantiate default project
 //create a project array
 
 const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 
-const newToDo = new ToDo({
+const newToDo1 = new ToDo({
   title: "First",
   description: "test",
   dueDate: new Date(),  
   priority: "High",
   notes: ""
 });
-defaultProject.addToDo(newToDo);
+defaultProject.addToDo(newToDo1);
 
 const newToDo2 = new ToDo({
   title: "Second",
@@ -96,7 +98,6 @@ body.addEventListener('click', (event)=> {
         event.target.remove();
     }
 
-  console.log('test')
   //submit new project form
   if(event.target.classList.contains('submitNewProject')){
     console.log('submit')
@@ -106,6 +107,23 @@ body.addEventListener('click', (event)=> {
     modalOverlay.remove();
     updateProjectSideBar(Project.Projects)
     renderProjectPage(newProject);
+  }
+
+  //new to do modal
+  if(event.target.classList.contains('addToDo')){
+    renderNewToDoModal();
+  }
+
+  //submit new to do form
+  if(event.target.classList.contains('submitNewToDo')){
+    const {title, description, dueDate, priority, notes} = getNewToDoFormValues()
+    const newToDo = new ToDo({title, description, dueDate, priority, notes});
+    console.log(newToDo)
+
+    const currentProject = Project.filterProjectArrayByTitle(document.querySelector('.projectTitle').innerText);
+    currentProject.addToDo(newToDo);
+    modalOverlay.remove();
+    renderProjectPage(currentProject);
   }
 })
 

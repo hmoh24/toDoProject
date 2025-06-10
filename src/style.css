@@ -50,3 +50,12 @@ main{
     position: absolute;
 }
 
+.modalContainerToDo {
+    z-index: 3;
+    right: 50%;
+    top: 50%;
+    background: green;
+    height: 300px;
+    width: 300px;
+    position: absolute;
+}
