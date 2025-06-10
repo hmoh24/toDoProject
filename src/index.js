@@ -12,8 +12,11 @@ import getNewToDoFormValues from './domMethods/getNewToDoFormValues';
 //instantiate default project
 //create a project array
 
-const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+console.log(Project.Projects)
 
+const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+localStorage.setItem('projectStore', JSON.stringify(Project.Projects))
+console.log(JSON.parse(localStorage.getItem('projectStore')))
 const newToDo1 = new ToDo({
   title: "First",
   description: "test",
@@ -31,7 +34,7 @@ const newToDo2 = new ToDo({
   notes: ""
 });
 defaultProject.addToDo(newToDo2);
-console.log(defaultProject.toDoArray);
+// console.log(defaultProject.toDoArray);
 renderProjectPage(defaultProject);
 
 
@@ -59,7 +62,7 @@ main.addEventListener('click', (event) => {
       renderProjectPage(projectObject);
   }
 
-    //Submit Button on Edit Project Page
+  //Submit Button on Edit Project Page
   if (event.target.classList.contains('submitProjectEdit')){
       console.log('submitted');
       const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
@@ -68,6 +71,11 @@ main.addEventListener('click', (event) => {
             console.log(projectObject)
 
       renderProjectPage(projectObject);
+  }
+
+  //Open To Do Detailed View
+  if (event.target.classList.contains('toDoSection')){
+
   }
   
 })
