@@ -1,18 +1,20 @@
 function renderToDoItem(toDoObject, container){
     const toDoSection = document.createElement('div');
     toDoSection.classList.add('toDoSection');
+    toDoSection.dataset.title = toDoObject.title;
 
     const title = document.createElement('h3');
     title.innerText = toDoObject.title;
+    title.classList.add('toDoTitle');
     toDoSection.appendChild(title);
 
-    const description = document.createElement('p');
-    description.innerText = toDoObject.description;
-    toDoSection.appendChild(description);
+    // const description = document.createElement('p');
+    // description.innerText = toDoObject.description;
+    // toDoSection.appendChild(description);
 
-    const notes = document.createElement('p');
-    notes.innerText = toDoObject.notes;
-    toDoSection.appendChild(notes);
+    // const notes = document.createElement('p');
+    // notes.innerText = toDoObject.notes;
+    // toDoSection.appendChild(notes);
 
     const priority = document.createElement('p');
     priority.innerText = `Priority: ${toDoObject.priority}`;

@@ -55,7 +55,13 @@ function renderProjectEditPage(project) {
     backButton.innerText = 'Back';
     form.appendChild(backButton);
 
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.classList.add('deleteProjectButton');
+    deleteButton.innerText = 'Delete Project';
+
     main.appendChild(form);
+    main.appendChild(deleteButton);
 }
 
 export default renderProjectEditPage;

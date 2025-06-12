@@ -9,6 +9,7 @@ import renderNewProjectModal from './domMethods/renderNewProjectModal';
 import getNewProjectFormValues from './domMethods/getNewProjectFormValues';
 import renderNewToDoModal from './domMethods/renderNewToDoModal';
 import getNewToDoFormValues from './domMethods/getNewToDoFormValues';
+import renderDetailedToDoView from './domMethods/renderDetailedToDoView';
 //instantiate default project
 //create a project array
 
@@ -34,7 +35,7 @@ const newToDo2 = new ToDo({
   notes: ""
 });
 defaultProject.addToDo(newToDo2);
-// console.log(defaultProject.toDoArray);
+
 renderProjectPage(defaultProject);
 
 
@@ -74,8 +75,13 @@ main.addEventListener('click', (event) => {
   }
 
   //Open To Do Detailed View
-  if (event.target.classList.contains('toDoSection')){
-
+  const toDoContainer = event.target.closest('.toDoSection');
+  if (toDoContainer){
+    const title = toDoContainer.getAttribute('data-title');
+    const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
+    const projectObject = Project.filterProjectArrayByTitle(projectTitle);
+    const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
+    renderDetailedToDoView(toDoObject);
   }
   
 })

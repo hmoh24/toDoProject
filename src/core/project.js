@@ -43,6 +43,16 @@ class Project{
         })
         return obj
     }
+
+    static filterProjectToDoByTitle(project, title){
+        let obj;
+        project.toDoArray.filter(toDo => {
+            if (toDo.title === title){
+                obj = toDo;
+            }
+        })
+        return obj;
+    }
 }
 
 export default Project
