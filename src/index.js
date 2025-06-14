@@ -85,6 +85,7 @@ main.addEventListener('click', (event) => {
     renderDetailedToDoView(toDoObject);
   }
 
+  //Submit edited To Do
   if (event.target.classList.contains('detailedToDoSubmitButton')){
     const form = document.querySelector('.detailedToDoForm');
     const title = form.getAttribute('toDo');
@@ -93,6 +94,24 @@ main.addEventListener('click', (event) => {
     const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
     console.log(toDoObject);
     updateToDoOnSubmit(toDoObject);
+    renderProjectPage(projectObject);
+  }
+
+  //Back from To Do Detailed View
+  if (event.target.classList.contains('detailedToDoBackButton')){
+    const form = document.querySelector('.detailedToDoForm');
+    const projectTitle = form.getAttribute('project');
+    const projectObject = Project.filterProjectArrayByTitle(projectTitle);
+    renderProjectPage(projectObject);
+  }
+
+  //Delete To Do
+  if (event.target.classList.contains('removeToDo')){
+    const form = document.querySelector('.detailedToDoForm');
+    const title = form.getAttribute('toDo');
+    const projectTitle = form.getAttribute('project');
+    const projectObject = Project.filterProjectArrayByTitle(projectTitle)
+    Project.deleteObject(projectObject.toDoArray, title);
     renderProjectPage(projectObject);
   }
   
