@@ -10,6 +10,7 @@ import getNewProjectFormValues from './domMethods/getNewProjectFormValues';
 import renderNewToDoModal from './domMethods/renderNewToDoModal';
 import getNewToDoFormValues from './domMethods/getNewToDoFormValues';
 import renderDetailedToDoView from './domMethods/renderDetailedToDoView';
+import updateToDoOnSubmit from './domMethods/updateToDoOnSubmit';
 //instantiate default project
 //create a project array
 
@@ -82,6 +83,17 @@ main.addEventListener('click', (event) => {
     const projectObject = Project.filterProjectArrayByTitle(projectTitle);
     const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
     renderDetailedToDoView(toDoObject);
+  }
+
+  if (event.target.classList.contains('detailedToDoSubmitButton')){
+    const form = document.querySelector('.detailedToDoForm');
+    const title = form.getAttribute('toDo');
+    const projectTitle = form.getAttribute('project');
+    const projectObject = Project.filterProjectArrayByTitle(projectTitle)
+    const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
+    console.log(toDoObject);
+    updateToDoOnSubmit(toDoObject);
+    renderProjectPage(projectObject);
   }
   
 })
