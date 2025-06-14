@@ -11,8 +11,13 @@ import renderNewToDoModal from './domMethods/renderNewToDoModal';
 import getNewToDoFormValues from './domMethods/getNewToDoFormValues';
 import renderDetailedToDoView from './domMethods/renderDetailedToDoView';
 import updateToDoOnSubmit from './domMethods/updateToDoOnSubmit';
-//instantiate default project
-//create a project array
+
+
+
+//date format
+const date = new Date()
+const options = { weekday: 'long', day: 'numeric', month: 'short', year: '2-digit' };
+const formatted = date.toLocaleDateString('en-US', options);
 
 console.log(Project.Projects)
 
@@ -22,7 +27,7 @@ console.log(JSON.parse(localStorage.getItem('projectStore')))
 const newToDo1 = new ToDo({
   title: "First",
   description: "test",
-  dueDate: new Date(),  
+  dueDate: formatted,  
   priority: "High",
   notes: ""
 });
@@ -31,7 +36,7 @@ defaultProject.addToDo(newToDo1);
 const newToDo2 = new ToDo({
   title: "Second",
   description: "test",
-  dueDate: new Date(),     
+  dueDate: formatted,     
   priority: "High",
   notes: ""
 });
@@ -92,6 +97,20 @@ main.addEventListener('click', (event) => {
     const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
     const projectObject = Project.filterProjectArrayByTitle(projectTitle);
     const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
+
+    //Ignore open and checkbox action on checkbox input instead
+    if (event.target.tagName === 'INPUT'){
+      if (event.target.checked) {
+        toDoObject.completed = true;
+        toDoContainer.classList.add('toDoCompleted')
+      }
+      else {
+        toDoObject.completed = false;
+        toDoContainer.classList.remove('toDoCompleted');
+      }
+      console.log(toDoObject);
+      return;
+    }
     renderDetailedToDoView(toDoObject);
   }
 

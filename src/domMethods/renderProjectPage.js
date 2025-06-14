@@ -11,10 +11,12 @@ function renderProjectPage(project) {
 
     const desc = document.createElement('p');
     desc.innerText = project.desc;
+    desc.classList.add('projectDesc')
     main.appendChild(desc);
 
     const notes = document.createElement('p');
-    notes.innerText = project.notes;
+    notes.innerText = `Notes: ${project.notes}`;
+    notes.classList.add('projectNotes')
     main.appendChild(notes);
 
     // toDoArray handling can go here later
