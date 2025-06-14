@@ -14,9 +14,10 @@
 
 :root{
     --primary-color: #f7f7f7;
-    --secondary-color: blue;
+    --secondary-color: #8DA15F;
+    --hover-secondary-color: #758745;
     --tertiary-color: rgb(250, 249, 223);
-    --accent-color: rgb(133, 229, 255);
+    --accent-color: #D2AA4F ;
     font-family: 'Quicksand';
     font-weight: normal;
 }
@@ -83,9 +84,21 @@ h1 {
 
 .addProject {
     order: 99;
-    margin-top: 8px;
+    width: 90%;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+    margin: 1rem auto;
+    display: block;
 }
 
+.addProject:hover {
+    background-color: var(--hover-secondary-color);
+}
 
 main{
     flex: 4 1 0;
@@ -105,6 +118,7 @@ main{
 
 .toDodiv {
     border-top: 1px solid black;
+    padding-top: 16px;
 }
 
 .toDoSection {
@@ -116,10 +130,23 @@ main{
     padding: 16px 8px;
     border-left: 4px solid red;
     border-radius: 4px;
+    margin-top: 4px;
+}
+
+.borderLeftLow {
+    border-left: 5px solid green;
+}
+
+.borderLeftMedium {
+    border-left: 5px solid orange;
+}
+
+.borderLeftHigh {
+    border-left: 5px solid red;
 }
 
 .toDoCompleted {
-    text-decoration: line-through;
+    text-decoration: line-through;  
 }
 
 .toDoSection > * {
@@ -164,7 +191,7 @@ main{
 
 
 .toDoSection:hover {
-    background-color: rgb(248, 102, 102);
+    background-color: var(--tertiary-color)
 }
 
 .modalOverlay {
@@ -175,22 +202,332 @@ main{
     background-color: #414141c7;
 }
 
-.modalContainer {
-    z-index: 3;
-    right: 50%;
-    top: 50%;
-    background: green;
-    height: 300px;
-    width: 300px;
-    position: absolute;
+.editProject,
+.addToDo {
+    width: 48%;
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 16px;
+    margin-right: 4%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
 }
 
-.modalContainerToDo {
-    z-index: 3;
-    right: 50%;
-    top: 50%;
-    background: green;
-    height: 300px;
-    width: 300px;
+.addToDo{
+    margin-right: 0;
+}
+
+.editProject:hover,
+.addToDo:hover {
+    background-color: var(--hover-secondary-color);
+}
+
+/*detailed to do view */
+.detailedToDoForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 500px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.detailedToDoForm label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.detailedToDoForm input[type="text"],
+.detailedToDoForm input[type="date"],
+.detailedToDoForm select,
+.detailedToDoForm textarea {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: auto;
+    min-width: 150px;
+    display: inline-block;
+}
+
+.detailedToDoForm textarea {
+    resize: vertical;
+}
+
+.detailedToDoForm input[type="checkbox"] {
+    width: auto;
+    transform: scale(1.1);
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.detailedToDoForm br {
+    display: none;
+}
+
+.detailedToDoForm button {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--secondary-color, #007BFF);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    display: inline-block;
+}
+
+.detailedToDoForm button:hover {
+    background-color: var(--secondary-color-hover, #0056b3);
+}
+
+.detailedToDoForm .removeToDo {
+    background-color: #dc3545;
+}
+
+.detailedToDoForm .removeToDo:hover {
+    background-color: #a71d2a;
+}
+
+.detailedToDoForm .detailedToDoSubmitButton {
+    background-color: #28a745;
+}
+
+.detailedToDoForm .detailedToDoSubmitButton:hover {
+    background-color: #1e7e34;
+}
+
+.detailedToDoForm .detailedToDoBackButton {
+    background-color: #6c757d;
+}
+
+.detailedToDoForm .detailedToDoBackButton:hover {
+    background-color: #5a6268;
+}
+
+/*edit project page*/
+.projectEditForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 500px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.projectEditForm label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.projectEditForm input[type="text"],
+.projectEditForm textarea {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.projectEditForm textarea {
+    resize: vertical;
+}
+
+.projectEditForm button {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    min-width: 100px;
+}
+
+.projectEditForm .submitProjectEdit {
+    background-color: #28a745;
+}
+
+.projectEditForm .submitProjectEdit:hover {
+    background-color: #1e7e34;
+}
+
+.projectEditForm .backToProjectPage {
+    background-color: #6c757d;
+}
+
+.projectEditForm .backToProjectPage:hover {
+    background-color: #5a6268;
+}
+
+.projectEditForm .deleteProjectButton {
+    background-color: #dc3545;
+}
+
+.projectEditForm .deleteProjectButton:hover {
+    background-color: #a71d2a;
+}
+
+.projectEditForm button:last-child {
+    margin-right: 0;
+}
+
+/* Align buttons inline at form bottom */
+.projectEditForm {
+    gap: 1rem;
+}
+
+.projectEditForm > button {
+}
+
+.projectEditForm button {
+    display: inline-block;
+}
+
+
+.modalContainer {
     position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 320px;
+    max-width: 90vw;
+    background: white;
+    padding: 1rem 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box;
+}
+
+.closeModal {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #666;
+    user-select: none;
+}
+
+.newProjectForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.newProjectForm label {
+    font-weight: bold;
+}
+
+.newProjectForm input[type="text"],
+.newProjectForm textarea {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    resize: vertical;
+}
+
+.newProjectForm button {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    align-self: flex-start;
+}
+
+.newProjectForm button:hover {
+    background-color: #1e7e34;
+}
+
+
+/* new to do modal*/
+.modalContainerToDo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 320px;
+    max-width: 90vw;
+    background: white;
+    padding: 1rem 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box;
+}
+
+.modalContainerToDo .closeModal {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #666;
+    user-select: none;
+}
+
+.newProjectFormToDo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.newProjectFormToDo label {
+    font-weight: bold;
+}
+
+
+.newProjectFormToDo input[type="text"],
+.newProjectFormToDo input[type="date"],
+.newProjectFormToDo select,
+.newProjectFormToDo textarea {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    resize: vertical;
+}
+
+.newProjectFormToDo input[type="radio"] {
+    margin-left: 0.5rem;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.newProjectFormToDo button {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745; 
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    align-self: flex-start;
+}
+
+.newProjectFormToDo button:hover {
+    background-color: #1e7e34;
 }

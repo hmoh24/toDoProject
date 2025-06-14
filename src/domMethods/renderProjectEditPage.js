@@ -59,9 +59,9 @@ function renderProjectEditPage(project) {
     deleteButton.type = 'button';
     deleteButton.classList.add('deleteProjectButton');
     deleteButton.innerText = 'Delete Project';
+    form.appendChild(deleteButton);
 
     main.appendChild(form);
-    main.appendChild(deleteButton);
 }
 
 export default renderProjectEditPage;

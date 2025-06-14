@@ -3,6 +3,10 @@ function renderDetailedToDoView(toDoObject) {
     const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
     main.innerHTML = ''; // Clear the current page
 
+    const pageTitle = document.createElement('h1');
+    pageTitle.innerText = 'To-Do Details & Edit';
+    main.appendChild(pageTitle);
+
     const form = document.createElement('form');
     form.classList.add('detailedToDoForm');
     form.setAttribute('toDo', toDoObject.title);

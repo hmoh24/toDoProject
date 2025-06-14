@@ -3,7 +3,11 @@ function renderToDoItem(toDoObject, container){
     toDoSection.classList.add('toDoSection');
     toDoSection.dataset.title = toDoObject.title;
 
-    
+    toDoSection.classList.remove('borderLeftLow', 'borderLeftMedium', 'borderLeftHigh');
+
+    const priorityClass = `borderLeft${toDoObject.priority}`;
+    toDoSection.classList.add(priorityClass);
+        
 
     // const description = document.createElement('p');
     // description.innerText = toDoObject.description;

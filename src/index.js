@@ -37,7 +37,7 @@ const newToDo2 = new ToDo({
   title: "Second",
   description: "test",
   dueDate: formatted,     
-  priority: "High",
+  priority: "Low",
   notes: ""
 });
 defaultProject.addToDo(newToDo2);
@@ -168,8 +168,8 @@ body.addEventListener('click', (event)=> {
   const modalOverlay = document.querySelector('.modalOverlay');
   const modal = document.querySelector('.modalContainer');
 
-  if (event.target.classList.contains('modalOverlay')) {
-        event.target.remove();
+  if (event.target.classList.contains('modalOverlay') || event.target.classList.contains('closeModal')) {
+        modalOverlay.remove();
     }
 
   //submit new project form
