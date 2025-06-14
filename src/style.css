@@ -1,8 +1,24 @@
+@font-face {
+    font-family: 'Quicksand';
+    src: url(./font/static/Quicksand-Regular.ttf) format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url(./font/static/Quicksand-Bold.ttf) format(truetype);
+    font-weight: bold;
+    font-style: normal;
+}
+
 :root{
-    --primary-color: red;
-    --secondary-color: white;
-    --tertiary-color: rgb(192, 190, 190);
-    --accent-color: blue;
+    --primary-color: #f7f7f7;
+    --secondary-color: blue;
+    --tertiary-color: rgb(250, 249, 223);
+    --accent-color: rgb(133, 229, 255);
+    font-family: 'Quicksand';
+    font-weight: normal;
 }
 
 html, body{
@@ -12,19 +28,62 @@ html, body{
     position: relative;
 }
 
+button, input, select, textarea {
+    font-family: inherit;
+}
+
 body {
     display: flex;
 }
 
+h1 {
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
 .sidebar{
-    flex: 1 1 auto;
+    flex: 1 1 0;
     background-color: var(--tertiary-color);
     display: flex;
     flex-direction: column;
+    padding: 16px;
+}
+
+.iconContainer {
+    width: 100%;
+    display:flex;
+    align-items: center;
+}
+
+.iconContainer > img {
+    height: 12px;
+}
+
+.iconContainer > p {
+    margin-left: 4px;
+    font-weight: bolder;
+    font-size: 12px;
+}
+
+.sidebar > h2 {
+    color: rgb(83, 83, 75)
+}
+
+.projectSideButton {
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    padding: 8px 4px;
+    font-size: 16px;
+}
+
+.projectSideButton:hover {
+    background: var(--accent-color);
 }
 
 .addProject {
     order: 99;
+    margin-top: 8px;
 }
 
 .toDoSection:hover {
@@ -32,7 +91,7 @@ body {
 }
 
 main{
-    flex: 5 1 auto;
+    flex: 4 1 0;
     background-color: var(--primary-color);
 }
 
