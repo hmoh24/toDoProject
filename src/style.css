@@ -76,6 +76,7 @@ h1 {
     border: none;
     padding: 8px 4px;
     font-size: 16px;
+    border-radius: 4px;
 }
 
 .projectSideButton:hover {
@@ -160,7 +161,7 @@ main{
     -webkit-appearance: none; /* For Safari */
     width: 20px;
     height: 20px;
-    border: 2px solid rgb(87, 87, 87);
+    border: 2px solid rgb(185, 185, 185);
     border-radius: 50%; /* Circle */
     cursor: pointer;
     position: relative;
@@ -381,9 +382,6 @@ main{
 /* Align buttons inline at form bottom */
 .projectEditForm {
     gap: 1rem;
-}
-
-.projectEditForm > button {
 }
 
 .projectEditForm button {
