@@ -11,43 +11,47 @@ import renderNewToDoModal from './domMethods/renderNewToDoModal';
 import getNewToDoFormValues from './domMethods/getNewToDoFormValues';
 import renderDetailedToDoView from './domMethods/renderDetailedToDoView';
 import updateToDoOnSubmit from './domMethods/updateToDoOnSubmit';
-
+import { loadFromLocalStorage, updateLocalStorage } from './core/localStorageFuncs';
 
 
 //date format
 const date = new Date()
 const options = { weekday: 'long', day: 'numeric', month: 'short', year: '2-digit' };
 const formatted = date.toLocaleDateString('en-US', options);
-
-console.log(Project.Projects)
+console.log(localStorage.length);
+if (localStorage.length === 0){
+  //initialise with default project and a few todos, render sidebar+project page and update local storage
+}
+else {
+  loadFromLocalStorage();
+  renderProjectPage(Project.Projects[0]);
+  updateProjectSideBar(Project.Projects)
+}
+//Run project update function everytime a new to do is added/deleted same with project
 
 const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-localStorage.setItem('projectStore', JSON.stringify(Project.Projects))
-console.log(JSON.parse(localStorage.getItem('projectStore')))
-const newToDo1 = new ToDo({
-  title: "First",
-  description: "test",
-  dueDate: formatted,  
-  priority: "High",
-  notes: ""
-});
-defaultProject.addToDo(newToDo1);
+console.log(defaultProject);
+console.log(Project.Projects[0]);
+// localStorage.setItem('projectStore', JSON.stringify(Project.Projects))
+// const newToDo1 = new ToDo({
+//   title: "First",
+//   description: "test",
+//   dueDate: formatted,  
+//   priority: "High",
+//   notes: ""
+// });
+// defaultProject.addToDo(newToDo1);
 
-const newToDo2 = new ToDo({
-  title: "Second",
-  description: "test",
-  dueDate: formatted,     
-  priority: "Low",
-  notes: ""
-});
-defaultProject.addToDo(newToDo2);
-
-renderProjectPage(defaultProject);
+// const newToDo2 = new ToDo({
+//   title: "Second",
+//   description: "test",
+//   dueDate: formatted,     
+//   priority: "Low",
+//   notes: ""
+// });
+// defaultProject.addToDo(newToDo2);
 
 
-const workProject = new Project('work', 'employment related tasks', '');
-
-updateProjectSideBar(Project.Projects);
 
 const main = document.getElementsByTagName('main')[0];
 main.addEventListener('click', (event) => {
@@ -65,17 +69,14 @@ main.addEventListener('click', (event) => {
   if (event.target.classList.contains('backToProjectPage')){
       const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
       const projectObject = Project.filterProjectArrayByTitle(projectTitle);
-      console.log(projectObject)
       renderProjectPage(projectObject);
   }
 
   //Submit Button on Edit Project Page
   if (event.target.classList.contains('submitProjectEdit')){
-      console.log('submitted');
       const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
       const projectObject = Project.filterProjectArrayByTitle(projectTitle);
       updateProjectOnSubmit(projectObject);
-            console.log(projectObject)
 
       renderProjectPage(projectObject);
   }
@@ -108,7 +109,6 @@ main.addEventListener('click', (event) => {
         toDoObject.completed = false;
         toDoContainer.classList.remove('toDoCompleted');
       }
-      console.log(toDoObject);
       return;
     }
     renderDetailedToDoView(toDoObject);
@@ -121,7 +121,6 @@ main.addEventListener('click', (event) => {
     const projectTitle = form.getAttribute('project');
     const projectObject = Project.filterProjectArrayByTitle(projectTitle)
     const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
-    console.log(toDoObject);
     updateToDoOnSubmit(toDoObject);
     renderProjectPage(projectObject);
   }
@@ -153,7 +152,6 @@ sideBar.addEventListener('click', (event)=>{
     //Switch Project Page
     if (event.target.classList.contains('projectSideButton')){
         const project = Project.filterProjectArrayByTitle(event.target.innerText);
-        console.log(project);
         renderProjectPage(project)
     }
 
@@ -174,11 +172,10 @@ body.addEventListener('click', (event)=> {
 
   //submit new project form
   if(event.target.classList.contains('submitNewProject')){
-    console.log('submit')
     const { title, desc, notes } = getNewProjectFormValues();
     const newProject = new Project(title, desc, notes);
-    console.log('New project created:', newProject);
     modalOverlay.remove();
+    updateLocalStorage();
     updateProjectSideBar(Project.Projects)
     renderProjectPage(newProject);
   }
@@ -192,12 +189,18 @@ body.addEventListener('click', (event)=> {
   if(event.target.classList.contains('submitNewToDo')){
     const {title, description, dueDate, priority, notes} = getNewToDoFormValues()
     const newToDo = new ToDo({title, description, dueDate, priority, notes});
-    console.log(newToDo)
 
     const currentProject = Project.filterProjectArrayByTitle(document.querySelector('.projectTitle').innerText);
+    console.log(currentProject)
     currentProject.addToDo(newToDo);
     modalOverlay.remove();
     renderProjectPage(currentProject);
+  }
+
+  //Clear local storage data
+  if(event.target.classList.contains('clearLocalStorage')){
+    localStorage.clear();
+    //render project page after updating local storage with default project after confirming that local storage is empty
   }
 })
 
