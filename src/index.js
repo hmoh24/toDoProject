@@ -113,15 +113,19 @@ main.addEventListener('click', (event) => {
   }
 
   //Delete On Edit Project Page
-  if (event.target.classList.contains('deleteProjectButton')){
-    if (Project.Projects.length ===1) throw new Error('Cannot Delete Final Project');
+  if (event.target.classList.contains('deleteProjectButton')) {
+  try {
+    if (Project.Projects.length === 1) throw new Error('Cannot Delete Final Project');
     const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
     const projectObject = Project.filterProjectArrayByTitle(projectTitle);
-    Project.deleteObject(Project.Projects, projectTitle)
+    Project.deleteObject(Project.Projects, projectTitle);
     updateLocalStorage();
     updateProjectSideBar(Project.Projects);
     renderProjectPage(Project.Projects[0]);
+  } catch (error) {
+    alert(error.message);
   }
+}
 
   //Open To Do Detailed View
   const toDoContainer = event.target.closest('.toDoSection');

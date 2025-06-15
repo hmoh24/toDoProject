@@ -5,7 +5,12 @@ class Project{
     static ProjectLimit = 8;
 
     constructor(title, desc, notes, toDoArray = []){
-        Project.errorOnMaxProjects()
+        try{
+            Project.errorOnMaxProjects()
+        }
+        catch(error){
+            alert(error.message);
+        }
         this.title = title;
         this.desc = desc;
         this.notes = notes;
