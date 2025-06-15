@@ -7,21 +7,6 @@ function renderToDoItem(toDoObject, container){
 
     const priorityClass = `borderLeft${toDoObject.priority}`;
     toDoSection.classList.add(priorityClass);
-        
-
-    // const description = document.createElement('p');
-    // description.innerText = toDoObject.description;
-    // toDoSection.appendChild(description);
-
-    // const notes = document.createElement('p');
-    // notes.innerText = toDoObject.notes;
-    // toDoSection.appendChild(notes);
-
-    // const priority = document.createElement('p');
-    // priority.innerText = `Priority: ${toDoObject.priority}`;
-    // toDoSection.appendChild(priority);
-
-
 
     const completedLabel = document.createElement('label');
     const completedCheckbox = document.createElement('input');
@@ -29,8 +14,6 @@ function renderToDoItem(toDoObject, container){
     completedCheckbox.checked = toDoObject.completed;
     if(completedCheckbox.checked) toDoSection.classList.add('toDoCompleted');
     else toDoSection.classList.remove('toDoCompleted');
-    // completedLabel.appendChild(completedCheckbox);
-    // toDoSection.appendChild(completedLabel);
     toDoSection.appendChild(completedCheckbox);
 
     const title = document.createElement('h3');
@@ -39,7 +22,9 @@ function renderToDoItem(toDoObject, container){
     toDoSection.appendChild(title);
 
     const dueDate = document.createElement('p');
-    dueDate.innerText = `Due Date: ${toDoObject.dueDate}`;
+    const options = { weekday: 'long', day: 'numeric', month: 'short', year: '2-digit' };
+    const displayDate = new Date(toDoObject.dueDate).toLocaleDateString('en-US', options);
+    dueDate.innerText = `Due Date: ${displayDate}`;
     toDoSection.appendChild(dueDate);
 
 

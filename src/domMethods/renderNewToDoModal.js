@@ -22,6 +22,8 @@ function renderNewToDoModal() {
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
     titleInput.classList.add('newToDoTitle');
+    titleInput.required = true;
+    titleInput.maxLength = 50;
     form.appendChild(titleInput);
 
     const descLabel = document.createElement('label');
@@ -30,6 +32,8 @@ function renderNewToDoModal() {
 
     const descInput = document.createElement('textarea');
     descInput.classList.add('newToDoDesc');
+    descInput.required = true;
+    descInput.maxLength = 100;
     form.appendChild(descInput);
 
     const notesLabel = document.createElement('label');
@@ -38,6 +42,7 @@ function renderNewToDoModal() {
 
     const notesInput = document.createElement('textarea');
     notesInput.classList.add('newToDoNotes');
+    notesInput.maxLength = 250;
     form.appendChild(notesInput);
 
     const priorityLabel = document.createElement('label');
@@ -46,6 +51,7 @@ function renderNewToDoModal() {
 
     const prioritySelect = document.createElement('select');
     prioritySelect.classList.add('newToDoPriority');
+    prioritySelect.required = true;
 
     ['Low', 'Medium', 'High'].forEach(level => {
         const option = document.createElement('option');
@@ -62,6 +68,7 @@ function renderNewToDoModal() {
     const dateInput = document.createElement('input');
     dateInput.type = 'date';
     dateInput.classList.add('newToDoDate');
+    dateInput.required = true;
     form.appendChild(dateInput);
 
     const submitButton = document.createElement('button');

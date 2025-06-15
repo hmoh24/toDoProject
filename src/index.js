@@ -15,43 +15,69 @@ import { loadFromLocalStorage, updateLocalStorage } from './core/localStorageFun
 
 
 //date format
-const date = new Date()
-const options = { weekday: 'long', day: 'numeric', month: 'short', year: '2-digit' };
-const formatted = date.toLocaleDateString('en-US', options);
-console.log(localStorage.length);
+const date = new Date();
+const isoFormatted = date.toISOString().split('T')[0]; // "2025-06-10"
+
 if (localStorage.length === 0){
   //initialise with default project and a few todos, render sidebar+project page and update local storage
+  const defaultProject = new Project(
+    'Getting Started',
+    'Your First To-Do Project',
+    'This is a sample project to help you explore how to organize tasks and manage your productivity. Edit this project to make it your own, or create a brand new one and delete this after (must have at least 1 Project)! Click on To-Dos to see more details.'
+  );
+  const newToDo1 = new ToDo({
+    title: "Explore the To-Do List",
+    description: "Click around the app to see how tasks, projects, and priorities work together.",
+    dueDate: isoFormatted,  
+    priority: "Low",
+    notes: "You can update or remove this task at any time."
+  });
+  defaultProject.addToDo(newToDo1);
+
+  const newToDo2 = new ToDo({
+    title: "Add Your First Custom Task",
+    description: "Try creating a new task that's actually relevant to your life or work.",
+    dueDate: isoFormatted,  
+    priority: "Medium",
+    notes: "Example: 'Call mom', 'Finish report', 'Go for a run'."
+  });
+  defaultProject.addToDo(newToDo2);
+
+  const newToDo3 = new ToDo({
+    title: "Try Changing Task Priorities",
+    description: "You can set tasks to Low, Medium, or High priority to stay organized.",
+    dueDate: isoFormatted,  
+    priority: "Low",
+    notes: "Consider marking urgent tasks as High priority."
+  });
+  defaultProject.addToDo(newToDo3);
+
+  const newToDo4 = new ToDo({
+    title: "Complete a Task",
+    description: "Check the box next to any task to mark it as done. It will stay visible until you delete it.",
+    dueDate: isoFormatted,  
+    priority: "Low",
+    notes: "You can also delete completed tasks to keep your list clean."
+  });
+  defaultProject.addToDo(newToDo4);
+
+  const newToDo5 = new ToDo({
+    title: "Create a New Project",
+    description: "Organize your tasks by creating a new project, like 'Work', 'Personal', or 'Shopping List'.",
+    dueDate: isoFormatted,  
+    priority: "Medium",
+    notes: "Projects help keep your tasks from different areas of life separate and manageable."
+  });
+  defaultProject.addToDo(newToDo5);
+  updateLocalStorage();
+  renderProjectPage(Project.Projects[0]);
+  updateProjectSideBar(Project.Projects)
 }
 else {
   loadFromLocalStorage();
   renderProjectPage(Project.Projects[0]);
   updateProjectSideBar(Project.Projects)
 }
-//Run project update function everytime a new to do is added/deleted same with project
-
-const defaultProject = new Project('Default', 'Default Project', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-console.log(defaultProject);
-console.log(Project.Projects[0]);
-// localStorage.setItem('projectStore', JSON.stringify(Project.Projects))
-// const newToDo1 = new ToDo({
-//   title: "First",
-//   description: "test",
-//   dueDate: formatted,  
-//   priority: "High",
-//   notes: ""
-// });
-// defaultProject.addToDo(newToDo1);
-
-// const newToDo2 = new ToDo({
-//   title: "Second",
-//   description: "test",
-//   dueDate: formatted,     
-//   priority: "Low",
-//   notes: ""
-// });
-// defaultProject.addToDo(newToDo2);
-
-
 
 const main = document.getElementsByTagName('main')[0];
 main.addEventListener('click', (event) => {
@@ -76,9 +102,14 @@ main.addEventListener('click', (event) => {
   if (event.target.classList.contains('submitProjectEdit')){
       const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
       const projectObject = Project.filterProjectArrayByTitle(projectTitle);
+      const form = document.querySelector('form')
+      if (form.checkValidity()) {
       updateProjectOnSubmit(projectObject);
-
+      updateLocalStorage();
       renderProjectPage(projectObject);
+    } else {
+      form.reportValidity();
+    }
   }
 
   //Delete On Edit Project Page
@@ -87,6 +118,7 @@ main.addEventListener('click', (event) => {
     const projectTitle = document.getElementsByClassName('projectTitle')[0].innerText;
     const projectObject = Project.filterProjectArrayByTitle(projectTitle);
     Project.deleteObject(Project.Projects, projectTitle)
+    updateLocalStorage();
     updateProjectSideBar(Project.Projects);
     renderProjectPage(Project.Projects[0]);
   }
@@ -103,11 +135,13 @@ main.addEventListener('click', (event) => {
     if (event.target.tagName === 'INPUT'){
       if (event.target.checked) {
         toDoObject.completed = true;
-        toDoContainer.classList.add('toDoCompleted')
+        toDoContainer.classList.add('toDoCompleted');
+        updateLocalStorage();
       }
       else {
         toDoObject.completed = false;
         toDoContainer.classList.remove('toDoCompleted');
+        updateLocalStorage();
       }
       return;
     }
@@ -121,8 +155,16 @@ main.addEventListener('click', (event) => {
     const projectTitle = form.getAttribute('project');
     const projectObject = Project.filterProjectArrayByTitle(projectTitle)
     const toDoObject = Project.filterProjectToDoByTitle(projectObject, title);
-    updateToDoOnSubmit(toDoObject);
-    renderProjectPage(projectObject);
+    console.log(form.checkValidity());
+    if(form.checkValidity()){
+      updateToDoOnSubmit(toDoObject);
+      updateLocalStorage();
+      renderProjectPage(projectObject);
+    }
+    else{
+      form.reportValidity();
+      return;
+    }
   }
 
   //Back from To Do Detailed View
@@ -140,6 +182,7 @@ main.addEventListener('click', (event) => {
     const projectTitle = form.getAttribute('project');
     const projectObject = Project.filterProjectArrayByTitle(projectTitle)
     Project.deleteObject(projectObject.toDoArray, title);
+    updateLocalStorage();
     renderProjectPage(projectObject);
   }
   
@@ -174,10 +217,17 @@ body.addEventListener('click', (event)=> {
   if(event.target.classList.contains('submitNewProject')){
     const { title, desc, notes } = getNewProjectFormValues();
     const newProject = new Project(title, desc, notes);
-    modalOverlay.remove();
-    updateLocalStorage();
-    updateProjectSideBar(Project.Projects)
-    renderProjectPage(newProject);
+    const form = document.querySelector('form');
+    if(form.checkValidity()){
+      updateProjectSideBar(Project.Projects)
+      updateLocalStorage();
+      renderProjectPage(newProject);
+      modalOverlay.remove();
+    }
+    else{
+      form.reportValidity();
+      return;
+    }
   }
 
   //new to do modal
@@ -189,17 +239,24 @@ body.addEventListener('click', (event)=> {
   if(event.target.classList.contains('submitNewToDo')){
     const {title, description, dueDate, priority, notes} = getNewToDoFormValues()
     const newToDo = new ToDo({title, description, dueDate, priority, notes});
-
     const currentProject = Project.filterProjectArrayByTitle(document.querySelector('.projectTitle').innerText);
-    console.log(currentProject)
     currentProject.addToDo(newToDo);
-    modalOverlay.remove();
-    renderProjectPage(currentProject);
+    const form = document.querySelector('form');
+    if(form.checkValidity()){
+      updateLocalStorage();   
+      renderProjectPage(currentProject);
+      modalOverlay.remove();
+    }
+    else{
+      form.reportValidity();
+      return;
+    }
   }
 
   //Clear local storage data
   if(event.target.classList.contains('clearLocalStorage')){
     localStorage.clear();
+    location.reload();
     //render project page after updating local storage with default project after confirming that local storage is empty
   }
 })
